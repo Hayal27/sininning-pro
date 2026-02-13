@@ -5,7 +5,11 @@ const {
   getTopProducts,
   getLowStockProducts,
   getSalesChart,
-  getOrderStatusDistribution
+  getOrderStatusDistribution,
+  getRecentActivity,
+  getCategorySales,
+  getMessageStats,
+  getSalesByPriceRange
 } = require('../controllers/analyticsController');
 
 const { protect, authorize } = require('../middleware/auth');
@@ -27,10 +31,22 @@ router.get('/top-products', getTopProducts);
 // Low stock products - All authenticated users
 router.get('/low-stock', getLowStockProducts);
 
-// Sales chart data - Admin and Manager only
-router.get('/sales-chart', authorize('admin', 'manager'), getSalesChart);
+// Sales chart data - Admin, Owner and Manager only
+router.get('/sales-chart', authorize('owner', 'admin', 'manager'), getSalesChart);
 
-// Order status distribution - Admin and Manager only
-router.get('/order-status', authorize('admin', 'manager'), getOrderStatusDistribution);
+// Order status distribution - Admin, Owner and Manager only
+router.get('/order-status', authorize('owner', 'admin', 'manager'), getOrderStatusDistribution);
+
+// Activity logs - All authenticated users
+router.get('/activity', getRecentActivity);
+
+// Sales by category - Admin, Owner and Manager only
+router.get('/sales-by-category', authorize('owner', 'admin', 'manager'), getCategorySales);
+
+// Message stats - Admin, Owner and Manager, and Content Manager
+router.get('/message-stats', authorize('owner', 'admin', 'manager', 'content-manager'), getMessageStats);
+
+// Sales by price range - Admin, Owner and Manager only
+router.get('/sales-by-price', authorize('owner', 'admin', 'manager'), getSalesByPriceRange);
 
 module.exports = router;

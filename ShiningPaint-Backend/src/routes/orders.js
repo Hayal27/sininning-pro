@@ -35,9 +35,9 @@ router.post('/',
   createOrder
 );
 
-// Update order status - Admin and Manager only
+// Update order status - Admin, Owner and Manager only
 router.put('/:id/status',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager'),
   [
     ...validationRules.idParam,
     require('express-validator').body('status')

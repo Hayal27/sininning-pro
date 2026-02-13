@@ -3,15 +3,16 @@ const { body, param, query, validationResult } = require('express-validator');
 // Handle validation errors
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
+    console.error('❌ Validation Failed:', JSON.stringify(errors.array(), null, 2));
     return res.status(400).json({
       success: false,
       error: 'Validation failed',
-      details: errors.array()
+      errors: errors.array()
     });
   }
-  
+
   next();
 };
 
@@ -24,6 +25,7 @@ const validationRules = {
       .normalizeEmail()
       .withMessage('Please provide a valid email'),
     body('password')
+      .optional({ checkFalsy: true })
       .isLength({ min: 8 })
       .withMessage('Password must be at least 8 characters long'),
     body('first_name')
@@ -36,8 +38,8 @@ const validationRules = {
       .withMessage('Last name must be between 2 and 50 characters'),
     body('role')
       .optional()
-      .isIn(['admin', 'manager', 'employee'])
-      .withMessage('Role must be admin, manager, or employee')
+      .isIn(['owner', 'admin', 'content-manager', 'hr'])
+      .withMessage('Role must be owner, admin, manager, or employee')
   ],
 
   userLogin: [
@@ -68,8 +70,8 @@ const validationRules = {
       .withMessage('Last name must be between 2 and 50 characters'),
     body('role')
       .optional()
-      .isIn(['admin', 'manager', 'employee'])
-      .withMessage('Role must be admin, manager, or employee')
+      .isIn(['owner', 'admin', 'content-manager', 'hr'])
+      .withMessage('Role must be owner, admin, manager, or employee')
   ],
 
   // Product validation

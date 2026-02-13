@@ -30,17 +30,17 @@ router.get('/:id',
 // All other routes are protected and require authentication
 router.use(protect);
 
-// Create product - Admin and Manager only
+// Create product - Admin, Owner, Manager and Content Manager only
 router.post('/',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager', 'content-manager'),
   validationRules.productCreate,
   handleValidationErrors,
   createProduct
 );
 
-// Update product - Admin and Manager only
+// Update product - Admin, Owner, Manager and Content Manager only
 router.put('/:id',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager', 'content-manager'),
   [
     ...validationRules.idParam,
     // Optional validation for update

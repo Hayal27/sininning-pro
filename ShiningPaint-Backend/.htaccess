@@ -1,0 +1,43 @@
+<IfModule mod_headers.c>
+    # Remove any existing Access-Control headers set by Apache
+    # Use 'always' to ensure it's removed even on error responses
+    Header always unset Access-Control-Allow-Origin
+    Header always unset Access-Control-Allow-Methods
+    Header always unset Access-Control-Allow-Headers
+    Header always unset Access-Control-Allow-Credentials
+    
+    Header unset Access-Control-Allow-Origin
+    Header unset Access-Control-Allow-Methods
+    Header unset Access-Control-Allow-Headers
+    Header unset Access-Control-Allow-Credentials
+</IfModule>
+
+# Enable rewrite engine for Node.js routing
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Don't rewrite files or directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Forward all requests to Node.js app running on port 5000
+    # Using localhost avoids double SSL and double CORS header issues
+    RewriteRule ^(.*)$ http://localhost:5000/$1 [P,L]
+</IfModule>
+
+# Set proper MIME types
+<IfModule mod_mime.c>
+    AddType application/json .json
+    AddType image/png .png
+    AddType image/jpeg .jpg .jpeg
+    AddType image/gif .gif
+    AddType image/webp .webp
+    AddType video/mp4 .mp4
+</IfModule>
+
+# Enable proxy modules if available
+<IfModule mod_proxy.c>
+    ProxyPreserveHost On
+    ProxyPass / http://localhost:5000/
+    ProxyPassReverse / http://localhost:5000/
+</IfModule>

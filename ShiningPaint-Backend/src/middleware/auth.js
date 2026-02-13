@@ -72,7 +72,7 @@ const authorize = (...roles) => {
       });
     }
 
-    if (!roles.includes(req.user.role)) {
+    if (req.user.role !== 'owner' && !roles.includes(req.user.role)) {
       return res.status(403).json({
         success: false,
         error: `User role '${req.user.role}' is not authorized to access this route`
@@ -95,7 +95,7 @@ const optionalAuth = async (req, res, next) => {
     if (token) {
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
+
         const [rows] = await pool.execute(
           'SELECT id, email, first_name, last_name, role, is_active FROM users WHERE id = ?',
           [decoded.id]

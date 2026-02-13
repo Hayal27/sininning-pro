@@ -1,7 +1,7 @@
 {
-  "name": "shiningpaint-backend",
+  "name": " Shinningpaint-backend",
   "version": "1.0.0",
-  "description": "ShiningPaint Manufacturing Admin Dashboard Backend API",
+  "description": " ShinningPaint Manufacturing Admin Dashboard Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -15,7 +15,7 @@
     "dashboard",
     "api"
   ],
-  "author": "ShiningPaint Manufacturing",
+  "author": " ShinningPaint Manufacturing",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^3.0.2",

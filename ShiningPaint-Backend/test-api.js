@@ -1,26 +1,26 @@
 const axios = require('axios');
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://api.shinningpaint.startechaigroup.com/api';
 
 async function testAPI() {
   try {
-    console.log('🧪 Testing ShiningPaint Backend API...\n');
+    console.log('🧪 Testing  ShinningPaint Backend API...\n');
 
     // Test 1: Health check
     console.log('1. Testing health check...');
-    const healthResponse = await axios.get('http://localhost:5000/health');
+    const healthResponse = await axios.get('https://api.shinningpaint.startechaigroup.com/health');
     console.log('✅ Health check passed:', healthResponse.data.status);
 
     // Test 2: Login
     console.log('\n2. Testing login...');
     const loginResponse = await axios.post(`${API_BASE}/auth/login`, {
-      email: 'admin@shiningpaint.com',
+      email: 'admin@ Shinningpaint.com',
       password: 'admin123'
     });
     console.log('✅ Login successful');
     console.log('   User:', loginResponse.data.user.first_name, loginResponse.data.user.last_name);
     console.log('   Role:', loginResponse.data.user.role);
-    
+
     const token = loginResponse.data.token;
 
     // Test 3: Get current user

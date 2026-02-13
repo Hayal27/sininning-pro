@@ -16,33 +16,33 @@ const router = express.Router();
 // All routes are protected and require authentication
 router.use(protect);
 
-// Get all users - Admin and Manager only
+// Get all users - Admin, Owner and Manager only
 router.get('/',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager'),
   validationRules.pagination,
   handleValidationErrors,
   getUsers
 );
 
-// Get single user - Admin and Manager only
+// Get single user - Admin, Owner and Manager only
 router.get('/:id',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager'),
   validationRules.idParam,
   handleValidationErrors,
   getUser
 );
 
-// Create user - Admin only
+// Create user - Admin and Owner only
 router.post('/',
-  authorize('admin'),
+  authorize('owner', 'admin'),
   validationRules.userRegistration,
   handleValidationErrors,
   createUser
 );
 
-// Update user - Admin and Manager only
+// Update user - Admin, Owner and Manager only
 router.put('/:id',
-  authorize('admin', 'manager'),
+  authorize('owner', 'admin', 'manager'),
   [
     ...validationRules.idParam,
     ...validationRules.userUpdate
@@ -51,17 +51,17 @@ router.put('/:id',
   updateUser
 );
 
-// Delete user - Admin only
+// Delete user - Admin and Owner only
 router.delete('/:id',
-  authorize('admin'),
+  authorize('owner', 'admin'),
   validationRules.idParam,
   handleValidationErrors,
   deleteUser
 );
 
-// Reset user password - Admin only
+// Reset user password - Admin and Owner only
 router.post('/:id/reset-password',
-  authorize('admin'),
+  authorize('owner', 'admin'),
   validationRules.idParam,
   handleValidationErrors,
   resetPassword

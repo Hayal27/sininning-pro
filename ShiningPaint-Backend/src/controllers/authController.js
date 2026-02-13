@@ -176,6 +176,7 @@ const changePassword = async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
     const userId = req.user.id;
+    console.log(`[DEBUG] Change password requested for user ID: ${userId}`);
 
     // Get user with password
     const [users] = await pool.execute(
@@ -196,11 +197,13 @@ const changePassword = async (req, res, next) => {
     const isCurrentPasswordValid = await comparePassword(currentPassword, user.password);
 
     if (!isCurrentPasswordValid) {
+      console.log(`[DEBUG] Current password check failed for user ID: ${userId}`);
       return res.status(400).json({
         success: false,
         error: 'Current password is incorrect'
       });
     }
+    console.log(`[DEBUG] Current password check passed for user ID: ${userId}`);
 
     // Validate new password strength
     const passwordValidation = validatePasswordStrength(newPassword);
@@ -220,6 +223,7 @@ const changePassword = async (req, res, next) => {
       'UPDATE users SET password = ? WHERE id = ?',
       [hashedNewPassword, userId]
     );
+    console.log(`[DEBUG] Password updated successfully in DB for user ID: ${userId}`);
 
     res.status(200).json({
       success: true,

@@ -55,9 +55,9 @@ router.put('/:id',
   updateCustomer
 );
 
-// Delete customer - Admin only
+// Delete customer - Admin and Owner only
 router.delete('/:id',
-  authorize('admin'),
+  authorize('owner', 'admin'),
   validationRules.idParam,
   handleValidationErrors,
   deleteCustomer

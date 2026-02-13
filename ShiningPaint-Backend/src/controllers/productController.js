@@ -37,6 +37,10 @@ const getProducts = async (req, res, next) => {
       whereClause += ' AND p.stock_quantity <= p.min_stock_level';
     }
 
+    if (req.query.featured === 'true') {
+      whereClause += ' AND p.is_featured = 1';
+    }
+
     // Get total count
     const [countResult] = await pool.execute(
       `SELECT COUNT(*) as total FROM products p ${whereClause}`,
@@ -101,7 +105,7 @@ const getProduct = async (req, res, next) => {
     }
 
     const product = products[0];
-    
+
     // Parse JSON fields
     product.images = product.images ? JSON.parse(product.images) : [];
     product.specifications = product.specifications ? JSON.parse(product.specifications) : {};
@@ -137,7 +141,8 @@ const createProduct = async (req, res, next) => {
       coverage_area,
       drying_time,
       images = [],
-      specifications = {}
+      specifications = {},
+      is_featured = false
     } = req.body;
 
     // Check if SKU already exists
@@ -174,13 +179,26 @@ const createProduct = async (req, res, next) => {
         name, description, sku, category_id, price, cost_price, 
         stock_quantity, min_stock_level, max_stock_level, unit,
         color_code, finish_type, coverage_area, drying_time,
-        images, specifications
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        images, specifications, is_featured
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
-        name, description, sku, category_id, price, cost_price,
-        stock_quantity, min_stock_level, max_stock_level, unit,
-        color_code, finish_type, coverage_area, drying_time,
-        JSON.stringify(images), JSON.stringify(specifications)
+        name,
+        description,
+        sku,
+        category_id || null,
+        price,
+        cost_price || null,
+        stock_quantity,
+        min_stock_level,
+        max_stock_level,
+        unit,
+        color_code || null,
+        finish_type || null,
+        coverage_area || null,
+        drying_time || null,
+        JSON.stringify(images),
+        JSON.stringify(specifications),
+        is_featured
       ]
     );
 
@@ -262,7 +280,7 @@ const updateProduct = async (req, res, next) => {
     const allowedFields = [
       'name', 'description', 'sku', 'category_id', 'price', 'cost_price',
       'min_stock_level', 'max_stock_level', 'unit', 'color_code',
-      'finish_type', 'coverage_area', 'drying_time', 'is_active'
+      'finish_type', 'coverage_area', 'drying_time', 'is_active', 'is_featured'
     ];
 
     allowedFields.forEach(field => {

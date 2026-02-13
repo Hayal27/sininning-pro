@@ -10,7 +10,7 @@ const seedDatabase = async () => {
     await pool.execute(
       `INSERT IGNORE INTO users (email, password, first_name, last_name, role, phone) 
        VALUES (?, ?, ?, ?, ?, ?)`,
-      ['admin@shiningpaint.com', adminPassword, 'Admin', 'User', 'admin', '+1-555-0001']
+      ['admin@ Shinningpaint.com', adminPassword, 'Admin', 'User', 'admin', '+1-555-0001']
     );
 
     // Create manager user
@@ -18,7 +18,7 @@ const seedDatabase = async () => {
     await pool.execute(
       `INSERT IGNORE INTO users (email, password, first_name, last_name, role, phone) 
        VALUES (?, ?, ?, ?, ?, ?)`,
-      ['manager@shiningpaint.com', managerPassword, 'Manager', 'User', 'manager', '+1-555-0002']
+      ['manager@ Shinningpaint.com', managerPassword, 'Manager', 'User', 'manager', '+1-555-0002']
     );
 
     // Create employee user
@@ -26,7 +26,7 @@ const seedDatabase = async () => {
     await pool.execute(
       `INSERT IGNORE INTO users (email, password, first_name, last_name, role, phone) 
        VALUES (?, ?, ?, ?, ?, ?)`,
-      ['employee@shiningpaint.com', employeePassword, 'Employee', 'User', 'employee', '+1-555-0003']
+      ['employee@ Shinningpaint.com', employeePassword, 'Employee', 'User', 'employee', '+1-555-0003']
     );
 
     // Create product categories
@@ -195,6 +195,122 @@ const seedDatabase = async () => {
       );
     }
 
+    // Check if recent orders exist (for analytics)
+    const [recentOrders] = await pool.execute(
+      `SELECT COUNT(*) as count FROM orders WHERE order_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)`
+    );
+
+    if (recentOrders[0].count === 0) {
+      console.log('📦 Seeding sample orders for analytics...');
+
+      // Get IDs
+      const [allCustomers] = await pool.execute('SELECT id FROM customers');
+      const [allProducts] = await pool.execute('SELECT id, price FROM products');
+      const [allUsers] = await pool.execute('SELECT id FROM users WHERE role = "admin"');
+
+      const userId = allUsers[0]?.id;
+
+      if (allCustomers.length > 0 && allProducts.length > 0) {
+        // Create orders
+        const statuses = ['pending', 'processing', 'shipped', 'delivered'];
+        const timestamp = Date.now();
+
+        for (let i = 1; i <= 15; i++) {
+          const customer = allCustomers[Math.floor(Math.random() * allCustomers.length)];
+          const status = statuses[Math.floor(Math.random() * statuses.length)];
+          // Random date within last 30 days
+          const date = new Date();
+          date.setDate(date.getDate() - Math.floor(Math.random() * 30));
+
+          // Create items first to calc total
+          const numItems = Math.floor(Math.random() * 3) + 1;
+          const items = [];
+
+          for (let j = 0; j < numItems; j++) {
+            const product = allProducts[Math.floor(Math.random() * allProducts.length)];
+            const qty = Math.floor(Math.random() * 5) + 1;
+            items.push({
+              product_id: product.id,
+              quantity: qty,
+              unit_price: product.price,
+              total_price: product.price * qty
+            });
+          }
+
+          const subtotal = items.reduce((sum, item) => sum + item.total_price, 0);
+          const total = subtotal; // Simplified
+
+          // Insert Order
+          const [orderResult] = await pool.execute(
+            `INSERT INTO orders (
+              order_number, customer_id, user_id, status, order_date, 
+              subtotal, total_amount, payment_status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+              `ORD-${timestamp}-${i}`, customer.id, userId, status, date,
+              subtotal, total, 'paid'
+            ]
+          );
+
+          const orderId = orderResult.insertId;
+
+          // Insert items
+          for (const item of items) {
+            await pool.execute(
+              `INSERT INTO order_items (order_id, product_id, quantity, unit_price, total_price)
+               VALUES (?, ?, ?, ?, ?)`,
+              [orderId, item.product_id, item.quantity, item.unit_price, item.total_price]
+            );
+          }
+        }
+      }
+    }
+
+    // Check if contact submissions exist
+    const [existingContact] = await pool.execute('SELECT COUNT(*) as count FROM contact_submissions');
+    if (existingContact[0].count === 0) {
+      console.log('💬 Seeding contact submissions...');
+
+      const messages = [
+        {
+          name: 'Alice Cooper',
+          email: 'alice@example.com',
+          subject: 'Question about bulk orders',
+          message: 'Do you offer discounts for bulk orders?',
+          status: 'new'
+        },
+        {
+          name: 'Bob Builder',
+          email: 'bob@example.com',
+          subject: 'Shipping inquiry',
+          message: 'How long does shipping to NY take?',
+          status: 'read'
+        },
+        {
+          name: 'Charlie Day',
+          email: 'charlie@example.com',
+          subject: 'Product availability',
+          message: 'When will the gold paint be back in stock?',
+          status: 'new'
+        },
+        {
+          name: 'David Lee',
+          email: 'david@example.com',
+          subject: 'Catalogue Request',
+          message: 'Please send digital catalogue.',
+          status: 'resolved'
+        }
+      ];
+
+      for (const msg of messages) {
+        await pool.execute(
+          `INSERT INTO contact_submissions (name, email, subject, message, status)
+           VALUES (?, ?, ?, ?, ?)`,
+          [msg.name, msg.email, msg.subject, msg.message, msg.status]
+        );
+      }
+    }
+
     console.log('✅ Database seeding completed successfully!');
     console.log('📋 Created:');
     console.log('   - 3 users (admin, manager, employee)');
@@ -203,9 +319,9 @@ const seedDatabase = async () => {
     console.log('   - 3 sample customers');
     console.log('');
     console.log('🔑 Login credentials:');
-    console.log('   Admin: admin@shiningpaint.com / admin123');
-    console.log('   Manager: manager@shiningpaint.com / manager123');
-    console.log('   Employee: employee@shiningpaint.com / employee123');
+    console.log('   Admin: admin@ Shinningpaint.com / admin123');
+    console.log('   Manager: manager@ Shinningpaint.com / manager123');
+    console.log('   Employee: employee@ Shinningpaint.com / employee123');
 
   } catch (error) {
     console.error('❌ Database seeding failed:', error.message);

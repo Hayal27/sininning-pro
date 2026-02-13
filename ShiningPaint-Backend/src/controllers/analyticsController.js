@@ -149,7 +149,7 @@ const getTopProducts = async (req, res, next) => {
     const daysAgo = parseInt(period);
 
     const [products] = await pool.execute(
-      `SELECT p.id, p.name, p.sku, p.price,
+      `SELECT p.id, p.name, p.sku, p.price, p.stock_quantity,
               SUM(oi.quantity) as total_sold,
               SUM(oi.total_price) as total_revenue
        FROM products p
@@ -157,7 +157,7 @@ const getTopProducts = async (req, res, next) => {
        INNER JOIN orders o ON oi.order_id = o.id
        WHERE o.status NOT IN ('cancelled')
        AND o.order_date >= DATE_SUB(NOW(), INTERVAL ? DAY)
-       GROUP BY p.id, p.name, p.sku, p.price
+       GROUP BY p.id, p.name, p.sku, p.price, p.stock_quantity
        ORDER BY total_sold DESC
        LIMIT ?`,
       [daysAgo, limit]
@@ -249,11 +249,200 @@ const getOrderStatusDistribution = async (req, res, next) => {
   }
 };
 
+// @desc    Get recent activity logs
+// @route   GET /api/analytics/activity
+// @access  Private
+const getRecentActivity = async (req, res, next) => {
+  try {
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Get recent orders
+    const [recentOrders] = await pool.execute(
+      `SELECT 'order' as type, id, order_number as reference, total_amount as value, created_at, status
+       FROM orders 
+       ORDER BY created_at DESC LIMIT ?`,
+      [limit]
+    );
+
+    // Get recent products
+    const [recentProducts] = await pool.execute(
+      `SELECT 'product' as type, id, name as reference, price as value, created_at, 'created' as status
+       FROM products 
+       ORDER BY created_at DESC LIMIT ?`,
+      [limit]
+    );
+
+    // Get recent users
+    const [recentUsers] = await pool.execute(
+      `SELECT 'user' as type, id, CONCAT(first_name, ' ', last_name) as reference, role as value, created_at, 'joined' as status
+       FROM users 
+       ORDER BY created_at DESC LIMIT ?`,
+      [limit]
+    );
+
+    // Get recent customers
+    const [recentCustomers] = await pool.execute(
+      `SELECT 'customer' as type, id, company_name as reference, contact_person as value, created_at, 'registered' as status
+       FROM customers 
+       ORDER BY created_at DESC LIMIT ?`,
+      [limit]
+    );
+
+    // Combine and sort
+    const allActivity = [
+      ...recentOrders.map(o => ({
+        id: `ord-${o.id}`,
+        type: 'order',
+        message: `Order #${o.reference} placed`,
+        detail: `$${parseFloat(o.value).toFixed(2)}`,
+        date: o.created_at,
+        status: o.status
+      })),
+      ...recentProducts.map(p => ({
+        id: `prod-${p.id}`,
+        type: 'product',
+        message: `Product "${p.reference}" added`,
+        detail: `$${parseFloat(p.value).toFixed(2)}`,
+        date: p.created_at,
+        status: 'new'
+      })),
+      ...recentUsers.map(u => ({
+        id: `user-${u.id}`,
+        type: 'user',
+        message: `New user ${u.reference}`,
+        detail: u.value, // role
+        date: u.created_at,
+        status: 'active'
+      })),
+      ...recentCustomers.map(c => ({
+        id: `cust-${c.id}`,
+        type: 'customer',
+        message: `New customer ${c.reference}`,
+        detail: c.value, // contact person
+        date: c.created_at,
+        status: 'active'
+      }))
+    ];
+
+    // Sort by date DESC and limit
+    const sortedActivity = allActivity
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, limit);
+
+    res.status(200).json({
+      success: true,
+      data: sortedActivity
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get sales by category
+// @route   GET /api/analytics/sales-by-category
+// @access  Private
+const getCategorySales = async (req, res, next) => {
+  try {
+    const { period = '30' } = req.query;
+    const daysAgo = parseInt(period);
+
+    const [categoryData] = await pool.execute(
+      `SELECT c.name as category, COALESCE(SUM(oi.total_price), 0) as value
+       FROM product_categories c
+       LEFT JOIN products p ON c.id = p.category_id
+       LEFT JOIN order_items oi ON p.id = oi.product_id
+       LEFT JOIN orders o ON oi.order_id = o.id AND o.status NOT IN ('cancelled') AND o.order_date >= DATE_SUB(NOW(), INTERVAL ? DAY)
+       GROUP BY c.id, c.name
+       HAVING value > 0
+       ORDER BY value DESC`,
+      [daysAgo]
+    );
+
+    res.status(200).json({
+      success: true,
+      data: categoryData
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Get message statistics
+// @route   GET /api/analytics/message-stats
+// @access  Private
+const getMessageStats = async (req, res, next) => {
+  try {
+    // Status distribution
+    const [statusDist] = await pool.execute(
+      `SELECT status, COUNT(*) as count
+       FROM contact_submissions
+       GROUP BY status`
+    );
+
+    // General stats (Total, New)
+    const [generalStats] = await pool.execute(
+      `SELECT 
+        COUNT(*) as total_messages,
+        SUM(CASE WHEN status = 'new' THEN 1 ELSE 0 END) as new_messages
+       FROM contact_submissions`
+    );
+
+    res.status(200).json({
+      success: true,
+      data: {
+        distribution: statusDist,
+        stats: generalStats[0]
+      }
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSalesByPriceRange = async (req, res, next) => {
+  try {
+    const { period = '30' } = req.query;
+    const daysAgo = parseInt(period);
+
+    const [priceData] = await pool.execute(
+      `SELECT 
+        CASE
+          WHEN p.price < 40 THEN 'Under $40'
+          WHEN p.price BETWEEN 40 AND 60 THEN '$40 - $60'
+          ELSE 'Over $60'
+        END as price_range,
+        COALESCE(SUM(oi.total_price), 0) as value
+       FROM products p
+       LEFT JOIN order_items oi ON p.id = oi.product_id
+       LEFT JOIN orders o ON oi.order_id = o.id AND o.status NOT IN ('cancelled') AND o.order_date >= DATE_SUB(NOW(), INTERVAL ? DAY)
+       GROUP BY price_range
+       HAVING value > 0
+       ORDER BY value DESC`,
+      [daysAgo]
+    );
+
+    res.status(200).json({
+      success: true,
+      data: priceData
+    });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getDashboardStats,
   getRecentOrders,
   getTopProducts,
   getLowStockProducts,
   getSalesChart,
-  getOrderStatusDistribution
+  getOrderStatusDistribution,
+  getRecentActivity,
+  getCategorySales,
+  getMessageStats,
+  getSalesByPriceRange
 };

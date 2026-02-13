@@ -15,7 +15,7 @@ const uploadSingle = async (req, res, next) => {
     }
 
     const file = req.files.file;
-    const { folder = 'general' } = req.body;
+    const { folder = 'general' } = req.body || {};
 
     // Validate file type
     const allowedTypes = process.env.ALLOWED_FILE_TYPES?.split(',') || [
@@ -35,8 +35,9 @@ const uploadSingle = async (req, res, next) => {
     // Generate unique filename
     const fileExtension = path.extname(file.name);
     const fileName = `${uuidv4()}${fileExtension}`;
-    const uploadPath = path.join('uploads', folder);
+    const uploadPath = path.resolve('uploads', folder);
     const filePath = path.join(uploadPath, fileName);
+    const relativeFilePath = path.join('uploads', folder, fileName);
 
     // Create directory if it doesn't exist
     try {
@@ -46,14 +47,18 @@ const uploadSingle = async (req, res, next) => {
     }
 
     // Move file to upload directory
+    if (typeof file.mv !== 'function') {
+      throw new Error('file.mv is not a function - check express-fileupload configuration');
+    }
+
     await file.mv(filePath);
 
     // Return file information
     const fileInfo = {
       originalName: file.name,
       fileName: fileName,
-      filePath: filePath,
-      fileUrl: `${req.protocol}://${req.get('host')}/${filePath}`,
+      filePath: relativeFilePath.replace(/\\/g, '/'), // Always use forward slashes for URLs
+      fileUrl: `/${relativeFilePath.replace(/\\/g, '/')}`, // Return relative URL from root
       mimeType: file.mimetype,
       size: file.size,
       folder: folder
@@ -65,6 +70,7 @@ const uploadSingle = async (req, res, next) => {
     });
 
   } catch (error) {
+    console.error('Upload Single Error:', error);
     next(error);
   }
 };
@@ -82,7 +88,7 @@ const uploadMultiple = async (req, res, next) => {
     }
 
     const files = Array.isArray(req.files.files) ? req.files.files : [req.files.files];
-    const { folder = 'general' } = req.body;
+    const { folder = 'general' } = req.body || {};
     const uploadedFiles = [];
 
     // Validate file types
@@ -134,7 +140,11 @@ const uploadMultiple = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: uploadedFiles
+      data: uploadedFiles.map(f => ({
+        ...f,
+        filePath: f.filePath.replace(/\\/g, '/'),
+        fileUrl: `/${f.filePath.replace(/\\/g, '/')}`
+      }))
     });
 
   } catch (error) {
@@ -188,7 +198,7 @@ const getFileInfo = async (req, res, next) => {
     // Check if file exists and get stats
     try {
       const stats = await fs.stat(filePath);
-      
+
       const fileInfo = {
         fileName: fileName,
         filePath: filePath,

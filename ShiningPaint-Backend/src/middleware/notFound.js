@@ -11,7 +11,14 @@ const notFound = (req, res, next) => {
       orders: '/api/orders',
       customers: '/api/customers',
       analytics: '/api/analytics',
-      upload: '/api/upload'
+      upload: '/api/upload',
+      news: '/api/news',
+      careers: '/api/careers',
+      hero: '/api/hero',
+      settings: '/api/settings',
+      offices: '/api/offices',
+      contact: '/api/contact',
+      subscriptions: '/api/subscriptions'
     }
   });
 };

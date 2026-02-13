@@ -99,7 +99,7 @@ const getUser = async (req, res, next) => {
 // @access  Private (Admin)
 const createUser = async (req, res, next) => {
   try {
-    const { email, first_name, last_name, role = 'employee', phone } = req.body;
+    const { email, first_name, last_name, role = 'employee', phone, password } = req.body;
 
     // Check if user already exists
     const [existingUsers] = await pool.execute(
@@ -114,9 +114,9 @@ const createUser = async (req, res, next) => {
       });
     }
 
-    // Generate random password
-    const tempPassword = generateRandomPassword();
-    const hashedPassword = await hashPassword(tempPassword);
+    // Generate random password if not provided
+    const passwordToUse = password || generateRandomPassword();
+    const hashedPassword = await hashPassword(passwordToUse);
 
     // Create user
     const [result] = await pool.execute(
@@ -135,7 +135,7 @@ const createUser = async (req, res, next) => {
       success: true,
       data: users[0],
       message: 'User created successfully',
-      tempPassword: tempPassword // In production, send this via email
+      tempPassword: password ? undefined : passwordToUse // Only send back if generated
     });
 
   } catch (error) {

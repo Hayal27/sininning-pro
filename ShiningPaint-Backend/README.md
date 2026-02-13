@@ -1,6 +1,6 @@
-# ShiningPaint Manufacturing Admin Dashboard - Backend API
+#  ShinningPaint Manufacturing Admin Dashboard - Backend API
 
-A comprehensive Node.js backend API for the ShiningPaint Manufacturing Admin Dashboard, built with Express.js, MySQL, and JWT authentication.
+A comprehensive Node.js backend API for the  ShinningPaint Manufacturing Admin Dashboard, built with Express.js, MySQL, and JWT authentication.
 
 ## 🚀 Features
 
@@ -25,7 +25,7 @@ A comprehensive Node.js backend API for the ShiningPaint Manufacturing Admin Das
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd ShiningPaint-Backend
+   cd  ShinningPaint-Backend
    ```
 
 2. **Install dependencies**
@@ -34,7 +34,7 @@ A comprehensive Node.js backend API for the ShiningPaint Manufacturing Admin Das
    ```
 
 3. **Setup MySQL Database**
-   - Create a MySQL database named `shiningpaint_db`
+   - Create a MySQL database named ` Shinningpaint_db`
    - Update the database credentials in `.env` file
 
 4. **Configure Environment Variables**
@@ -43,7 +43,7 @@ A comprehensive Node.js backend API for the ShiningPaint Manufacturing Admin Das
      ```env
      DB_HOST=localhost
      DB_PORT=3306
-     DB_NAME=shiningpaint_db
+     DB_NAME= Shinningpaint_db
      DB_USER=your_mysql_username
      DB_PASSWORD=your_mysql_password
      JWT_SECRET=your_super_secret_jwt_key
@@ -65,15 +65,15 @@ The application will automatically:
 - Seed the database with initial data (in development mode)
 
 ### Default Users Created:
-- **Admin**: admin@shiningpaint.com / admin123
-- **Manager**: manager@shiningpaint.com / manager123
-- **Employee**: employee@shiningpaint.com / employee123
+- **Admin**: admin@ Shinningpaint.com / admin123
+- **Manager**: manager@ Shinningpaint.com / manager123
+- **Employee**: employee@ Shinningpaint.com / employee123
 
 ## 📚 API Documentation
 
 ### Base URL
 ```
-http://localhost:5000/api
+https://api.shinningpaint.startechaigroup.com/api
 ```
 
 ### Authentication Endpoints
