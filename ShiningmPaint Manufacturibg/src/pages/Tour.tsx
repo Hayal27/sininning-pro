@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { Calendar, Clock, Users, MapPin, Phone, Mail, CheckCircle, Factory, Shield, Award } from 'lucide-react';
 import { Button, Card } from '../components/ui';
-import { COMPANY_INFO } from '../utils/constants';
+import { CONTACT_INFO } from '../utils/constants';
 import { contactService } from '../services/contact';
 
 const Tour: FC = () => {
@@ -23,7 +23,7 @@ const Tour: FC = () => {
   }>({ type: null, message: '' });
 
   const availableTimes = [
-    '9:00 AM', '10:00 AM', '11:00 AM', 
+    '9:00 AM', '10:00 AM', '11:00 AM',
     '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'
   ];
 
@@ -67,13 +67,13 @@ ${contactInfo.message}`,
       };
 
       const response = await contactService.submitContactForm(tourRequest);
-      
+
       if (response.success) {
         setSubmitStatus({
           type: 'success',
           message: 'Tour request submitted successfully! We will contact you within 24 hours to confirm your visit.'
         });
-        
+
         // Reset form
         setSelectedDate('');
         setSelectedTime('');
@@ -150,7 +150,7 @@ ${contactInfo.message}`,
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="w-5 h-5 text-gray-400" />
-                  <span className="text-gray-600">{COMPANY_INFO.address}</span>
+                  <span className="text-gray-600">{CONTACT_INFO.address}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="w-5 h-5 text-green-500" />
@@ -168,7 +168,7 @@ ${contactInfo.message}`,
           <div>
             <Card padding="lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Book Your Tour</h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Date Selection */}
                 <div>
@@ -298,11 +298,10 @@ ${contactInfo.message}`,
 
                 {/* Status Messages */}
                 {submitStatus.type && (
-                  <div className={`p-4 rounded-md flex items-center space-x-2 ${
-                    submitStatus.type === 'success' 
-                      ? 'bg-green-50 text-green-800 border border-green-200' 
-                      : 'bg-red-50 text-red-800 border border-red-200'
-                  }`}>
+                  <div className={`p-4 rounded-md flex items-center space-x-2 ${submitStatus.type === 'success'
+                    ? 'bg-green-50 text-green-800 border border-green-200'
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                    }`}>
                     {submitStatus.type === 'success' ? (
                       <CheckCircle className="w-5 h-5" />
                     ) : (
@@ -312,9 +311,9 @@ ${contactInfo.message}`,
                   </div>
                 )}
 
-                <Button 
-                  type="submit" 
-                  size="lg" 
+                <Button
+                  type="submit"
+                  size="lg"
                   className="w-full"
                   disabled={isSubmitting}
                 >
@@ -339,11 +338,11 @@ ${contactInfo.message}`,
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Phone className="w-5 h-5 text-gray-400" />
-                  <span className="text-gray-600">{COMPANY_INFO.phone}</span>
+                  <span className="text-gray-600">{CONTACT_INFO.phone}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-gray-400" />
-                  <span className="text-gray-600">{COMPANY_INFO.email}</span>
+                  <span className="text-gray-600">{CONTACT_INFO.email}</span>
                 </div>
               </div>
             </Card>

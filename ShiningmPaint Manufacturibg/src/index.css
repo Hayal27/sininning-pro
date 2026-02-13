@@ -28,7 +28,12 @@
     color: #e2e8f0;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Playfair Display', serif;
   }
 
@@ -245,83 +250,223 @@
     border-radius: 50%;
     animation: paintSplash 4s ease-in-out infinite;
   }
+
+  .animate-fade-in-left {
+    animation: fadeInLeft 1s ease-out forwards;
+  }
 }
 
 /* Keyframe Animations */
 @keyframes cursorPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.7; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
 }
 
 @keyframes paintDrop {
-  0%, 100% { transform: rotate(-45deg) scale(1); }
-  25% { transform: rotate(-45deg) scale(1.1) translateY(-10px); }
-  50% { transform: rotate(-45deg) scale(1.2) translateY(-20px); }
-  75% { transform: rotate(-45deg) scale(1.1) translateY(-10px); }
+
+  0%,
+  100% {
+    transform: rotate(-45deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(-45deg) scale(1.1) translateY(-10px);
+  }
+
+  50% {
+    transform: rotate(-45deg) scale(1.2) translateY(-20px);
+  }
+
+  75% {
+    transform: rotate(-45deg) scale(1.1) translateY(-10px);
+  }
 }
 
 @keyframes paintDropInner {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-  50% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @keyframes loadingDots {
-  0%, 100% { transform: translateY(0); opacity: 0.5; }
-  50% { transform: translateY(-10px); opacity: 1; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
 }
 
 @keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
 }
 
 @keyframes floatShape {
-  0% { transform: translateY(100vh) rotate(0deg); }
-  100% { transform: translateY(-100px) rotate(360deg); }
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+  }
 }
 
 @keyframes paintSplash {
-  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-  25% { transform: scale(1.2) rotate(90deg); opacity: 0.6; }
-  50% { transform: scale(1.5) rotate(180deg); opacity: 0.8; }
-  75% { transform: scale(1.2) rotate(270deg); opacity: 0.6; }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+
+  25% {
+    transform: scale(1.2) rotate(90deg);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0.8;
+  }
+
+  75% {
+    transform: scale(1.2) rotate(270deg);
+    opacity: 0.6;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(50px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(240, 147, 251, 0.4); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 60px rgba(240, 147, 251, 0.4);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes morphShape {
-  0%, 100% { border-radius: 50% 50% 50% 50%; }
-  25% { border-radius: 60% 40% 60% 40%; }
-  50% { border-radius: 40% 60% 40% 60%; }
-  75% { border-radius: 50% 50% 40% 60%; }
+
+  0%,
+  100% {
+    border-radius: 50% 50% 50% 50%;
+  }
+
+  25% {
+    border-radius: 60% 40% 60% 40%;
+  }
+
+  50% {
+    border-radius: 40% 60% 40% 60%;
+  }
+
+  75% {
+    border-radius: 50% 50% 40% 60%;
+  }
 }
 
 /* Magical Interactive Elements */
@@ -445,13 +590,22 @@
 }
 
 @keyframes borderRotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Component Styles */
 @layer components {
+
   /* Professional Button Styles */
   .btn-primary {
     @apply relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden;
@@ -471,7 +625,7 @@
   }
 
   .btn-secondary {
-    @apply px-8 py-4 bg-white text-gray-800 font-semibold rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:text-blue-600 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300;
+    @apply px-8 py-4 text-gray-800 font-semibold rounded-xl border-2 border-gray-200 hover:border-blue-500 hover:text-blue-600 shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300;
   }
 
   .btn-outline {
@@ -566,13 +720,25 @@
 
 /* Keyframe Animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes glow {
-  from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
-  to { box-shadow: 0 0 30px rgba(59, 130, 246, 0.8); }
+  from {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+
+  to {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+  }
 }
 
 @keyframes slideUp {
@@ -580,6 +746,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -587,6 +754,15 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.bg-endigo {
+  background-color: #667eea !important;
 }

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
-import { Search, Filter, Eye, Calendar, Package, DollarSign } from 'lucide-react';
+import { Search, Eye, Calendar, Package, DollarSign } from 'lucide-react';
 import { Button, Card } from '../components/ui';
 import { ordersService, type Order, type OrderFilters } from '../services/orders';
 import { formatCurrency, formatDate } from '../utils/format';
@@ -98,7 +98,7 @@ const Orders: FC = () => {
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+        <div className="  rounded-lg shadow-lg p-6 mb-8">
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             <form onSubmit={handleSearch} className="flex-1 max-w-md">
               <div className="relative">
@@ -112,38 +112,38 @@ const Orders: FC = () => {
                 />
               </div>
             </form>
-            
+
             <div className="flex items-center gap-2 flex-wrap">
               <Button
-                variant={!filters.status ? "default" : "outline"}
+                variant={!filters.status ? "primary" : "outline"}
                 size="sm"
                 onClick={() => handleStatusFilter('all')}
               >
                 All
               </Button>
               <Button
-                variant={filters.status === 'pending' ? "default" : "outline"}
+                variant={filters.status === 'pending' ? "primary" : "outline"}
                 size="sm"
                 onClick={() => handleStatusFilter('pending')}
               >
                 Pending
               </Button>
               <Button
-                variant={filters.status === 'processing' ? "default" : "outline"}
+                variant={filters.status === 'processing' ? "primary" : "outline"}
                 size="sm"
                 onClick={() => handleStatusFilter('processing')}
               >
                 Processing
               </Button>
               <Button
-                variant={filters.status === 'shipped' ? "default" : "outline"}
+                variant={filters.status === 'shipped' ? "primary" : "outline"}
                 size="sm"
                 onClick={() => handleStatusFilter('shipped')}
               >
                 Shipped
               </Button>
               <Button
-                variant={filters.status === 'delivered' ? "default" : "outline"}
+                variant={filters.status === 'delivered' ? "primary" : "outline"}
                 size="sm"
                 onClick={() => handleStatusFilter('delivered')}
               >
@@ -188,7 +188,7 @@ const Orders: FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="  divide-y divide-gray-200">
                   {orders.map((order) => (
                     <tr key={order.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -265,13 +265,13 @@ const Orders: FC = () => {
             >
               Previous
             </Button>
-            
+
             {[...Array(pagination.pages)].map((_, index) => {
               const page = index + 1;
               return (
                 <Button
                   key={page}
-                  variant={pagination.page === page ? "default" : "outline"}
+                  variant={pagination.page === page ? "primary" : "outline"}
                   size="sm"
                   onClick={() => setFilters(prev => ({ ...prev, page }))}
                   className="w-10"
@@ -280,7 +280,7 @@ const Orders: FC = () => {
                 </Button>
               );
             })}
-            
+
             <Button
               variant="outline"
               size="sm"

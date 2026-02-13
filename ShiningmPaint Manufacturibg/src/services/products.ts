@@ -20,6 +20,7 @@ export interface Product {
   images: string[];
   specifications: Record<string, any>;
   is_active: boolean;
+  is_featured?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -58,7 +59,7 @@ export const productsService = {
   // Get all products with filters
   async getProducts(filters: ProductFilters = {}): Promise<ProductsResponse> {
     const params = new URLSearchParams();
-    
+
     Object.entries(filters).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
         params.append(key, value.toString());
@@ -77,7 +78,7 @@ export const productsService = {
 
   // Get featured products (for homepage)
   async getFeaturedProducts(limit: number = 6): Promise<Product[]> {
-    const response = await apiService.get(`/products?limit=${limit}&status=active`);
+    const response = await apiService.get(`/products?limit=${limit}&status=active&featured=true`);
     return response.data || response; // Handle both formats
   },
 
@@ -85,7 +86,7 @@ export const productsService = {
   async getProductsByCategory(categoryId: number, limit?: number): Promise<Product[]> {
     const params = new URLSearchParams({ category: categoryId.toString() });
     if (limit) params.append('limit', limit.toString());
-    
+
     const response = await apiService.get(`/products?${params.toString()}`);
     return response.data;
   },

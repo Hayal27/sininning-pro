@@ -1,0 +1,91 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E5E7EB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9CA3AF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="roofGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6B7280;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Sky -->
+  <rect width="800" height="500" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="400" width="800" height="100" fill="#10B981"/>
+  
+  <!-- Main Factory Building -->
+  <rect x="100" y="200" width="600" height="200" fill="url(#buildingGradient)" rx="10"/>
+  
+  <!-- Factory Roof -->
+  <polygon points="90,200 400,150 710,200" fill="url(#roofGradient)"/>
+  
+  <!-- Smokestacks -->
+  <rect x="200" y="80" width="30" height="120" fill="#6B7280"/>
+  <rect x="300" y="70" width="30" height="130" fill="#6B7280"/>
+  <rect x="500" y="85" width="30" height="115" fill="#6B7280"/>
+  <rect x="600" y="75" width="30" height="125" fill="#6B7280"/>
+  
+  <!-- Smoke -->
+  <ellipse cx="215" cy="60" rx="25" ry="15" fill="#E5E7EB" opacity="0.7"/>
+  <ellipse cx="315" cy="50" rx="30" ry="18" fill="#E5E7EB" opacity="0.7"/>
+  <ellipse cx="515" cy="65" rx="25" ry="15" fill="#E5E7EB" opacity="0.7"/>
+  <ellipse cx="615" cy="55" rx="28" ry="16" fill="#E5E7EB" opacity="0.7"/>
+  
+  <!-- Factory Windows -->
+  <rect x="130" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="190" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="250" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="310" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="370" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="430" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="490" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="550" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="610" y="230" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  
+  <!-- Lower Windows -->
+  <rect x="130" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="190" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="250" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="310" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="370" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="430" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="490" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="550" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  <rect x="610" y="300" width="40" height="30" fill="#60A5FA" opacity="0.8"/>
+  
+  <!-- Main Entrance -->
+  <rect x="380" y="340" width="40" height="60" fill="#8B4513" rx="5"/>
+  <circle cx="410" cy="370" r="3" fill="#FCD34D"/>
+  
+  <!-- Loading Dock -->
+  <rect x="650" y="350" width="50" height="50" fill="#4B5563" rx="3"/>
+  <rect x="660" y="360" width="30" height="30" fill="#6B7280"/>
+  
+  <!-- Storage Tanks -->
+  <ellipse cx="750" cy="350" rx="30" ry="40" fill="#DC2626"/>
+  <ellipse cx="750" cy="320" rx="25" ry="8" fill="#B91C1C"/>
+  
+  <!-- Company Sign -->
+  <rect x="250" y="180" width="300" height="40" fill="#FFFFFF" rx="5"/>
+  <text x="400" y="200" text-anchor="middle" fill="#1F2937" font-family="Arial, sans-serif" font-size="18" font-weight="bold">ShinningPaint Manufacturing PLC</text>
+  <text x="400" y="215" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="12">Since 2016 E.C.</text>
+  
+  <!-- Parking Area -->
+  <rect x="20" y="350" width="60" height="30" fill="#3B82F6" rx="5"/>
+  <rect x="20" y="390" width="60" height="10" fill="#1F2937"/>
+  
+  <!-- Trees -->
+  <circle cx="50" cy="380" r="20" fill="#10B981"/>
+  <rect x="47" y="380" width="6" height="20" fill="#8B4513"/>
+  
+  <circle cx="750" cy="420" r="15" fill="#10B981"/>
+  <rect x="747" y="420" width="6" height="15" fill="#8B4513"/>
+  
+</svg>

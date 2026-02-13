@@ -2,12 +2,10 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-
-// Create axios instance
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.shinningpaint.startechaigroup.com/api';
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -40,17 +38,17 @@ axiosInstance.interceptors.response.use(
       localStorage.removeItem('user');
       window.location.href = '/login';
     }
-    
+
     if (error.response?.status === 403) {
       // Forbidden
       console.error('Access forbidden');
     }
-    
-    if (error.response?.status >= 500) {
+
+    if (error.response && error.response.status >= 500) {
       // Server error
       console.error('Server error:', error.response.data);
     }
-    
+
     return Promise.reject(error);
   }
 );

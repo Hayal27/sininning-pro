@@ -76,3 +76,17 @@ export interface ManufacturingCapability {
   certifications: string[];
   imageUrl?: string;
 }
+
+// Hero Section Types
+export interface HeroSection {
+  id: number;
+  title: string;
+  subtitle: string;
+  images: string[];
+  cta_primary_text: string;
+  cta_primary_link: string;
+  cta_secondary_text: string;
+  cta_secondary_link: string;
+  is_active: boolean;
+}
+

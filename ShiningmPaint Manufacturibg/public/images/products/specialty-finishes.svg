@@ -1,0 +1,68 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="specialtyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="glowEffect" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#specialtyGradient)"/>
+  
+  <!-- Laboratory Equipment -->
+  <rect x="50" y="150" width="80" height="100" fill="#F3F4F6" rx="5"/>
+  <rect x="150" y="140" width="60" height="110" fill="#F3F4F6" rx="5"/>
+  <rect x="230" y="160" width="70" height="90" fill="#F3F4F6" rx="5"/>
+  <rect x="320" y="145" width="50" height="105" fill="#F3F4F6" rx="5"/>
+  
+  <!-- Test Tubes -->
+  <rect x="60" y="120" width="8" height="40" fill="#DC2626" rx="4"/>
+  <rect x="75" y="115" width="8" height="45" fill="#F59E0B" rx="4"/>
+  <rect x="90" y="125" width="8" height="35" fill="#10B981" rx="4"/>
+  <rect x="105" y="118" width="8" height="42" fill="#3B82F6" rx="4"/>
+  <rect x="120" y="122" width="8" height="38" fill="#8B5CF6" rx="4"/>
+  
+  <!-- Beakers -->
+  <ellipse cx="180" cy="200" rx="25" ry="30" fill="rgba(16,185,129,0.6)"/>
+  <ellipse cx="260" cy="210" rx="20" ry="25" fill="rgba(59,130,246,0.6)"/>
+  <ellipse cx="345" cy="205" rx="15" ry="20" fill="rgba(139,92,246,0.6)"/>
+  
+  <!-- Molecular Structure -->
+  <circle cx="100" cy="80" r="8" fill="#DC2626"/>
+  <circle cx="130" cy="70" r="6" fill="#3B82F6"/>
+  <circle cx="160" cy="85" r="7" fill="#10B981"/>
+  <circle cx="190" cy="75" r="5" fill="#F59E0B"/>
+  <line x1="100" y1="80" x2="130" y2="70" stroke="#6B7280" stroke-width="2"/>
+  <line x1="130" y1="70" x2="160" y2="85" stroke="#6B7280" stroke-width="2"/>
+  <line x1="160" y1="85" x2="190" y2="75" stroke="#6B7280" stroke-width="2"/>
+  
+  <!-- Innovation Symbols -->
+  <polygon points="250,50 260,30 270,50 290,40 280,60 260,50" fill="#FCD34D"/>
+  <polygon points="320,60 330,40 340,60 360,50 350,70 330,60" fill="#FCD34D"/>
+  
+  <!-- Custom Label -->
+  <rect x="20" y="20" width="80" height="25" fill="rgba(16,185,129,0.9)" rx="3"/>
+  <text x="60" y="37" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">CUSTOM</text>
+  
+  <!-- Specialty Effects -->
+  <circle cx="200" cy="150" r="30" fill="url(#glowEffect)" opacity="0.5"/>
+  <circle cx="300" cy="100" r="25" fill="url(#glowEffect)" opacity="0.4"/>
+  <circle cx="120" cy="200" r="35" fill="url(#glowEffect)" opacity="0.3"/>
+  
+  <!-- Paint Drops with Special Effects -->
+  <circle cx="350" cy="120" r="8" fill="#EC4899" opacity="0.8"/>
+  <circle cx="370" cy="140" r="6" fill="#8B5CF6" opacity="0.8"/>
+  <circle cx="330" cy="160" r="10" fill="#06B6D4" opacity="0.8"/>
+  
+  <!-- Technology Lines -->
+  <path d="M50 250 Q200 230 350 250" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M30 270 Q200 250 370 270" stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.4"/>
+  
+</svg>

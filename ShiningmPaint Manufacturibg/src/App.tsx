@@ -16,6 +16,8 @@ import Tour from './pages/Tour';
 import Manufacturing from './pages/Manufacturing';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
+import News from './pages/News';
+import Careers from './pages/Careers';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +53,8 @@ const App: FC = () => {
               <Route path="/orders" element={<Orders />} />
               <Route path="/tour" element={<Tour />} />
               <Route path="/manufacturing" element={<Manufacturing />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/careers" element={<Careers />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

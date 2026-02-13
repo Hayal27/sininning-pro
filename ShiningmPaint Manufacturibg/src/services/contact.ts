@@ -30,7 +30,7 @@ export const contactService = {
   // Subscribe to newsletter
   async subscribeNewsletter(email: string): Promise<{ success: boolean; message: string }> {
     try {
-      const response = await apiService.post('/contact/newsletter', { email });
+      const response = await apiService.post('/subscriptions/subscribe', { email });
       return response;
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Failed to subscribe to newsletter');

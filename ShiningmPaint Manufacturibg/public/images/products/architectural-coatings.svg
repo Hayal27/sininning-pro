@@ -1,0 +1,63 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3B82F6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F3F4F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E5E7EB;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="roofGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B91C1C;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Sky -->
+  <rect width="400" height="300" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="250" width="400" height="50" fill="#10B981"/>
+  
+  <!-- Main Building -->
+  <rect x="100" y="120" width="200" height="130" fill="url(#buildingGradient)" rx="5"/>
+  
+  <!-- Roof -->
+  <polygon points="90,120 210,80 330,120" fill="url(#roofGradient)"/>
+  
+  <!-- Windows -->
+  <rect x="120" y="140" width="30" height="40" fill="#60A5FA" opacity="0.8"/>
+  <rect x="170" y="140" width="30" height="40" fill="#60A5FA" opacity="0.8"/>
+  <rect x="220" y="140" width="30" height="40" fill="#60A5FA" opacity="0.8"/>
+  <rect x="270" y="140" width="30" height="40" fill="#60A5FA" opacity="0.8"/>
+  
+  <!-- Door -->
+  <rect x="180" y="200" width="40" height="50" fill="#8B4513" rx="3"/>
+  <circle cx="210" cy="225" r="2" fill="#FCD34D"/>
+  
+  <!-- Paint Brush -->
+  <rect x="50" y="180" width="8" height="60" fill="#8B4513"/>
+  <ellipse cx="54" cy="170" rx="12" ry="8" fill="#DC2626"/>
+  
+  <!-- Paint Bucket -->
+  <rect x="320" y="200" width="40" height="50" fill="#6B7280" rx="3"/>
+  <ellipse cx="340" cy="200" rx="20" ry="5" fill="#3B82F6"/>
+  <rect x="335" y="190" width="10" height="15" fill="#6B7280"/>
+  
+  <!-- Color Swatches -->
+  <rect x="20" y="50" width="25" height="25" fill="#DC2626" rx="3"/>
+  <rect x="50" y="50" width="25" height="25" fill="#F59E0B" rx="3"/>
+  <rect x="80" y="50" width="25" height="25" fill="#10B981" rx="3"/>
+  <rect x="110" y="50" width="25" height="25" fill="#3B82F6" rx="3"/>
+  <rect x="140" y="50" width="25" height="25" fill="#8B5CF6" rx="3"/>
+  
+  <!-- Premium Label -->
+  <rect x="280" y="20" width="100" height="25" fill="rgba(59,130,246,0.9)" rx="3"/>
+  <text x="330" y="37" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">PREMIUM</text>
+  
+  <!-- Paint Strokes -->
+  <path d="M20 200 Q100 190 180 200" stroke="#DC2626" stroke-width="4" fill="none" opacity="0.7"/>
+  <path d="M220 210 Q300 200 380 210" stroke="#3B82F6" stroke-width="4" fill="none" opacity="0.7"/>
+  
+</svg>

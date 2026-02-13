@@ -22,12 +22,12 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(() => {
-    // Check localStorage first, then system preference
+    // Check localStorage first, otherwise default to light
     const saved = localStorage.getItem('theme');
     if (saved) {
       return saved === 'dark';
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false;
   });
 
   useEffect(() => {

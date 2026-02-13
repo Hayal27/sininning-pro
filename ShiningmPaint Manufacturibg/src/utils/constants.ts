@@ -1,40 +1,32 @@
 import type { CompanyInfo, ContactInfo } from '../types/index';
 
 export const COMPANY_INFO: CompanyInfo = {
-  name: 'ShinningPaint Manufacturing PLC',
-  tagline: 'Excellence in Every Coat',
-  description: 'Leading manufacturer of high-quality paints and coatings for industrial, commercial, and residential applications.',
-  founded: 1985,
-  headquarters: 'Industrial District, Manufacturing City',
-  employees: '500+'
+  name: 'Shinning Paint Manufacturing Plc',
+  tagline: 'We Paint quality on the road',
+  description: 'Leading manufacturer of premium road marking paints, dedicated to enhancing road safety and infrastructure durability.',
+  founded: 2016,
+  headquarters: 'Ethiopia',
+  employees: '100+'
 };
 
 export const CONTACT_INFO: ContactInfo = {
-  address: '123 Industrial Boulevard',
-  city: 'Manufacturing City',
-  state: 'Industrial State',
-  zipCode: '12345',
-  country: 'Country',
-  phone: '+1 (555) 123-4567',
-  email: 'info@Shinningpaint.com',
-  website: 'www.Shinningpaint.com'
+  address: 'Addis Ababa',
+  city: 'Addis Ababa',
+  state: 'Addis Ababa',
+  zipCode: '',
+  country: 'Ethiopia',
+  phone: ' +251963877777',
+  email: '420884970@qq.com',
+  website: 'www.shinningpaint.com'
 };
 
 export const NAVIGATION_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { 
-    label: 'Products', 
-    href: '/products',
-    children: [
-      { label: 'Industrial Paints', href: '/products/industrial' },
-      { label: 'Architectural Coatings', href: '/products/architectural' },
-      { label: 'Specialty Finishes', href: '/products/specialty' }
-    ]
-  },
-  { label: 'Orders', href: '/orders' },
-  { label: 'Factory Tour', href: '/tour' },
+  { label: 'Products', href: '/products' },
   { label: 'Manufacturing', href: '/manufacturing' },
+  { label: 'News', href: '/news' },
+  { label: 'Careers', href: '/careers' },
   { label: 'Contact', href: '/contact' }
 ];
 

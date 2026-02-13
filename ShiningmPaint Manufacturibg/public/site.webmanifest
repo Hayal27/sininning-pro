@@ -1,0 +1,25 @@
+{
+  "name": " ShiningPaint Manufacturing PLC",
+  "short_name": " ShinningPaint",
+  "description": "Ethiopia's premier paint manufacturer offering high-quality industrial coatings, architectural paints, and specialty finishes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e40af",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "manufacturing",
+    "shopping"
+  ],
+  "lang": "en-US",
+  "dir": "ltr"
+}
