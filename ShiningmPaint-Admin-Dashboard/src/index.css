@@ -1,19 +1,77 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+
+  /* Global Control Variables - Light Mode */
+  --color-background: 248 250 252;
+  /* slate-50 */
+  --color-surface: 255 255 255;
+  /* white */
+  --color-surface-hover: 241 245 249;
+  /* slate-100 */
+
+  --color-text-primary: 15 23 42;
+  /* slate-900 */
+  --color-text-secondary: 100 116 139;
+  /* slate-500 */
+  --color-text-inverted: 255 255 255;
+  /* white */
+
+  --color-border: 226 232 240;
+  /* slate-200 */
+
+  /* Brand Colors */
+  --color-primary-50: 239 246 255;
+  --color-primary-100: 219 234 254;
+  --color-primary-500: 59 130 246;
+  --color-primary-600: 37 99 235;
+  /* blue-600 */
+  --color-primary-700: 29 78 216;
 }
 
-* {
-  box-sizing: border-box;
+.dark {
+  color-scheme: dark;
+  /* Global Control Variables - Dark Mode */
+  --color-background: 15 23 42;
+  /* slate-900 */
+  --color-surface: 30 41 59;
+  /* slate-800 */
+  --color-surface-hover: 51 65 85;
+  /* slate-700 */
+
+  --color-text-primary: 241 245 249;
+  /* slate-100 */
+  --color-text-secondary: 148 163 184;
+  /* slate-400 */
+  --color-text-inverted: 15 23 42;
+  /* slate-900 */
+
+  --color-border: 51 65 85;
+  /* slate-700 */
+
+  /* Brand Colors - Adjusted for Dark Mode */
+  --color-primary-50: 30 58 138;
+  /* blue-900 */
+  --color-primary-100: 30 41 59;
+  --color-primary-500: 96 165 250;
+  /* blue-400 */
+  --color-primary-600: 59 130 246;
+  /* blue-500 */
+  --color-primary-700: 37 99 235;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #f8fafc;
+  /* Use the variables */
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-text-primary));
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Custom scrollbar */
@@ -44,6 +102,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -58,7 +117,25 @@ body {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }
+}
+
+/* Slide-in animation for drawer from right */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
 }

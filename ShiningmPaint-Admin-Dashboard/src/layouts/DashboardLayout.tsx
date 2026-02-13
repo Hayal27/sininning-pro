@@ -9,23 +9,22 @@ const DashboardLayout: React.FC = () => {
   const { sidebarOpen } = useUIStore();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background transition-colors duration-300">
       {/* Sidebar */}
       <Sidebar />
-      
+
       {/* Main content */}
-      <div className={`transition-all duration-300 ${
-        sidebarOpen ? 'lg:ml-64' : 'lg:ml-16'
-      }`}>
+      <div className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-16'
+        }`}>
         {/* Header */}
         <Header />
-        
+
         {/* Page content */}
         <main className="p-6">
           <Outlet />
         </main>
       </div>
-      
+
       {/* Notifications */}
       <NotificationContainer />
     </div>

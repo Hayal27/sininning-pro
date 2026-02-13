@@ -25,57 +25,83 @@ interface UIActions {
   setTheme: (theme: 'light' | 'dark') => void;
 }
 
-export const useUIStore = create<UIState & UIActions>((set, get) => ({
-  // Initial state
-  sidebarOpen: true,
-  notifications: [],
-  loading: false,
-  theme: 'light',
+// Get initial theme from localStorage or system preference
+const getInitialTheme = (): 'light' | 'dark' => {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const storedPrefs = window.localStorage.getItem('theme');
+    if (typeof storedPrefs === 'string') {
+      return storedPrefs as 'light' | 'dark';
+    }
+  }
+  return 'dark'; // Dark theme as the default
+};
 
-  // Actions
-  toggleSidebar: () => {
-    set((state) => ({ sidebarOpen: !state.sidebarOpen }));
-  },
+export const useUIStore = create<UIState & UIActions>((set, get) => {
+  // Initialize theme class on store creation
+  const initialTheme = getInitialTheme();
+  if (typeof document !== 'undefined') {
+    if (initialTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
 
-  setSidebarOpen: (open: boolean) => {
-    set({ sidebarOpen: open });
-  },
+  return {
+    // Initial state
+    sidebarOpen: true,
+    notifications: [],
+    loading: false,
+    theme: initialTheme,
 
-  addNotification: (notification: Omit<Notification, 'id'>) => {
-    const id = Math.random().toString(36).substr(2, 9);
-    const newNotification = { ...notification, id };
-    
-    set((state) => ({
-      notifications: [...state.notifications, newNotification],
-    }));
+    // Actions
+    toggleSidebar: () => {
+      set((state) => ({ sidebarOpen: !state.sidebarOpen }));
+    },
 
-    // Auto remove notification after duration
-    const duration = notification.duration || 5000;
-    setTimeout(() => {
-      get().removeNotification(id);
-    }, duration);
-  },
+    setSidebarOpen: (open: boolean) => {
+      set({ sidebarOpen: open });
+    },
 
-  removeNotification: (id: string) => {
-    set((state) => ({
-      notifications: state.notifications.filter((n) => n.id !== id),
-    }));
-  },
+    addNotification: (notification: Omit<Notification, 'id'>) => {
+      const id = Math.random().toString(36).substr(2, 9);
+      const newNotification = { ...notification, id };
 
-  clearNotifications: () => {
-    set({ notifications: [] });
-  },
+      set((state) => ({
+        notifications: [...state.notifications, newNotification],
+      }));
 
-  setLoading: (loading: boolean) => {
-    set({ loading });
-  },
+      // Auto remove notification after duration
+      const duration = notification.duration || 5000;
+      setTimeout(() => {
+        get().removeNotification(id);
+      }, duration);
+    },
 
-  setTheme: (theme: 'light' | 'dark') => {
-    set({ theme });
-    // Apply theme to document
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  },
-}));
+    removeNotification: (id: string) => {
+      set((state) => ({
+        notifications: state.notifications.filter((n) => n.id !== id),
+      }));
+    },
+
+    clearNotifications: () => {
+      set({ notifications: [] });
+    },
+
+    setLoading: (loading: boolean) => {
+      set({ loading });
+    },
+
+    setTheme: (theme: 'light' | 'dark') => {
+      set({ theme });
+      // Apply theme to document
+      const root = window.document.documentElement;
+      root.classList.remove('light', 'dark');
+      root.classList.add(theme);
+      localStorage.setItem('theme', theme);
+    },
+  };
+});
 
 // Helper functions for notifications
 export const showNotification = {

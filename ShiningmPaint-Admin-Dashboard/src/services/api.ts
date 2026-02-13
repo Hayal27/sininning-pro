@@ -7,8 +7,8 @@ class ApiService {
 
   constructor() {
     this.api = axios.create({
-      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-      timeout: 10000,
+      baseURL: import.meta.env.VITE_API_URL || 'https://api.shinningpaint.startechaigroup.com/api',
+      timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -40,6 +40,8 @@ class ApiService {
       (error) => {
         if (error.response?.status === 401) {
           localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          localStorage.removeItem('auth-storage');
           window.location.href = '/login';
         }
         return Promise.reject(error);
@@ -133,4 +135,5 @@ class ApiService {
   }
 }
 
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.shinningpaint.startechaigroup.com/api';
 export const apiService = new ApiService();

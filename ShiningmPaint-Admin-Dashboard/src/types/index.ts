@@ -4,12 +4,28 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  role: 'admin' | 'manager' | 'employee';
+  role: 'owner' | 'admin' | 'manager' | 'employee' | 'content-manager' | 'hr';
   avatar?: string;
   createdAt?: string;
   updatedAt?: string;
   isActive?: boolean;
+  phone?: string;
+  lastLogin?: string;
 }
+
+// Hero Section types
+export interface HeroSection {
+  id: number;
+  title: string;
+  subtitle: string;
+  images: string[];
+  cta_primary_text: string;
+  cta_primary_link: string;
+  cta_secondary_text: string;
+  cta_secondary_link: string;
+  is_active: boolean;
+}
+
 
 // Product types
 export interface Product {
@@ -105,6 +121,9 @@ export interface ApiResponse<T> {
   data: T;
   message: string;
   success: boolean;
+  error?: string;
+  errors?: any[];
+  details?: string[];
 }
 
 export interface PaginatedResponse<T> {

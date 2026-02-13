@@ -1,0 +1,24 @@
+{
+    "name": " ShinningPaint Admin Dashboard",
+    "short_name": "SP Admin",
+    "description": "Admin dashboard for  ShinningPaint Manufacturing PLC business management",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1e40af",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "business",
+        "productivity"
+    ],
+    "lang": "en-US",
+    "dir": "ltr"
+}

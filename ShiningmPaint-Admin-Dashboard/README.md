@@ -1,6 +1,6 @@
-# ShiningPaint Manufacturing Admin Dashboard
+#  ShinningPaint Manufacturing Admin Dashboard
 
-A modern, responsive admin dashboard for ShiningPaint Manufacturing built with React, TypeScript, and Tailwind CSS.
+A modern, responsive admin dashboard for  ShinningPaint Manufacturing built with React, TypeScript, and Tailwind CSS.
 
 ## Features
 
@@ -38,7 +38,7 @@ A modern, responsive admin dashboard for ShiningPaint Manufacturing built with R
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd ShiningmPaint-Admin-Dashboard
+cd  ShinningmPaint-Admin-Dashboard
 ```
 
 2. Install dependencies:
@@ -67,7 +67,7 @@ npm run dev
 
 For testing purposes, you can use these demo credentials:
 
-- **Email**: admin@shiningpaint.com
+- **Email**: admin@ Shinningpaint.com
 - **Password**: admin123
 
 ## Project Structure
@@ -152,4 +152,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, email support@shiningpaint.com or create an issue in the repository.
+For support, email support@ Shinningpaint.com or create an issue in the repository.

@@ -8,13 +8,13 @@ export interface AuthResponse {
 
 export const authService = {
   async login(credentials: LoginForm): Promise<AuthResponse> {
-    const response = await apiService.post('/auth/login', credentials);
+    const response: any = await apiService.post('/auth/login', credentials);
 
     if (response.success && response.token) {
       localStorage.setItem('token', response.token);
 
       // Transform backend user format to frontend format
-      const backendUser = response.user;
+      const backendUser: any = response.user;
       const user: User = {
         id: backendUser.id,
         email: backendUser.email,
@@ -47,10 +47,10 @@ export const authService = {
   },
 
   async getCurrentUser(): Promise<User> {
-    const response = await apiService.get('/auth/me');
+    const response: any = await apiService.get('/auth/me');
 
     if (response.success) {
-      const backendUser = response.data;
+      const backendUser: any = response.data;
       return {
         id: backendUser.id,
         email: backendUser.email,
